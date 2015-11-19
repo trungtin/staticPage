@@ -7,8 +7,17 @@
 import React, { PropTypes } from 'react';
 import './Layout.scss';
 import Navigation from '../Navigation';
+import Splash from '../Splash';
 
-function Layout({ children }) {
+function Layout(props) {
+	let {children, pathName} = props;
+	if (pathName === '/') {
+		return (
+	    <div className="Layout">
+	      <Splash />
+	    </div>
+	  );
+	}
   return (
     <div className="Layout">
       <Navigation />

@@ -4,7 +4,8 @@
  * Copyright (c) Konstantin Tarkus (@koistya) | MIT license
  */
 
-@import '../variables.scss';
+@import '../Sass/_variables.scss';
+@import '../Sass/_bits.scss';
 
 html, body {
   margin: 0;
@@ -16,22 +17,11 @@ html, body {
 
 .Layout {
   margin: 0 auto;
-}
-
-@media (min-width: $screen-sm-min) {
-  .Layout {
-    width: calc($screen-sm-min - 18px);
+  width: 100vw;
+  @mixin breakpoint phablet {
+    width: 85vw;
   }
-}
-
-@media (min-width: $screen-md-min) {
-  .Layout {
-    width: calc($screen-md-min - 22px);
-  }
-}
-
-@media (min-width: $screen-lg-min) {
-  .Layout {
-    width: calc($screen-lg-min - 30px);
+  @mixin breakpoint laptop {
+    width: 70vw;
   }
 }
