@@ -7,21 +7,14 @@
 import React, { PropTypes } from 'react';
 import './Layout.scss';
 import Navigation from '../Navigation';
-import Splash from '../Splash';
 
 function Layout(props) {
 	let {children, pathName} = props;
-	if (pathName === '/') {
-		return (
-	    <div className="Layout">
-	      <Splash />
-	    </div>
-	  );
-	}
-  return (
+	let isHome = pathName === '/';
+	return (
     <div className="Layout">
-      <Navigation />
-      {children}
+    	<Navigation isHome={isHome} pathName={pathName}/>
+    	{ !isHome && children }
     </div>
   );
 }

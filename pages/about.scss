@@ -1,0 +1,15 @@
+.container {
+}
+.col {
+	display: inline-block;
+	float: left;
+}
+.col-13 {
+	width: calc(100%/3);
+}
+.col-23 {
+	width: calc(200%/3);
+}
+.col-12 {
+	width: 50%;
+}

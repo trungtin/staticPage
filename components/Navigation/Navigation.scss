@@ -5,9 +5,229 @@
  */
 
 @import '../Sass/_variables.scss';
+@import url('https://fonts.googleapis.com/css?family=Oswald:400,700');
+
+$viewer-border-color: #bcbcbc;
+$personal-link-color: #00E676;
+$portfolio-link-color: #00B0FF;
+$blog-link-color: #AA00FF;
+$contact-link-color: #F50057;
+
+.nav-list {
+  position: absolute;
+  top: 50vh;
+  transform: translateY(-50%);
+  margin: 0 auto;
+  list-style: none;
+  h1, h2 {
+    font-family: 'Oswald';
+    display: inline-block;
+    margin: 0.5rem;
+  }
+  h1 {
+    font-size: 2.5rem;
+  }
+  h2 {
+    font-weight: 400;
+  }
+  cursor: pointer;
+  .nav-link {
+    a {
+      text-decoration: none;
+      color: #9b9b9b;
+    }
+    &:hover .personal {
+      color: $personal-link-color;
+    }
+    &:hover .portfolio {
+      color: $portfolio-link-color;
+    }
+    &:hover .blog {
+      color: $blog-link-color;
+    }
+    &:hover .contact {
+      color: $contact-link-color;
+    }
+  }
+  .bottom-bar {
+    margin-left: 1rem;
+    display: inline-block;
+    width: 60vw;
+    border-bottom: solid 0.5px $viewer-border-color;
+
+    &:after {
+      display: inline-block;
+      content: '';
+      min-width: 0;
+      transition: all 1s linear;
+      margin-bottom: -5px;
+      overflow: hidden;
+      height: 1rem;
+    }
+  }
+
+  .personal + .bottom-bar:after {
+    border-bottom: solid 2px $personal-link-color;
+  }
+  .portfolio + .bottom-bar:after {
+    border-bottom: solid 2px $portfolio-link-color;
+  }
+  .blog + .bottom-bar:after {
+    border-bottom: solid 2px $blog-link-color;
+  }
+  .contact + .bottom-bar:after {
+    border-bottom: solid 2px $contact-link-color;
+  }
+
+  .nav-link:hover .bottom-bar {
+    &:after {
+      min-width: 100%;
+      margin-bottom: -5px;
+    }
+  }
+}
+
+.round-view {
+  background: $body-bg;
+  position: absolute;
+  top: 50vh;
+  right: 15vw;
+  transform: translate(50%, -50%);
+  border: solid 0.5px $viewer-border-color;
+  border-radius: 50%;
+  width: 16.5rem;
+  height: 16.5rem;
+  z-index: 5;
+  &::before,
+  &::after {
+    box-sizing: border-box;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+  }
+  &::before {
+    border: 2px solid transparent;
+  }
+
+  &::after {
+    border: 0 solid transparent;
+  }
+
+  &.personal-view-open,
+  &.portfolio-view-open,
+  &.blog-view-open,
+  &.contact-view-open {
+    border: solid 0px $viewer-border-color;
+    &:before {
+      transition:
+        border-top-color 0.15s linear,
+        border-right-color 0.15s linear 0.10s,
+        border-bottom-color 0.15s linear 0.20s;
+    }
+    &:after {
+      border-left-width: 2px;
+      border-right-width: 2px;
+      transform: rotate(270deg);
+      transition:
+        transform 0.4s linear 0s,
+        border-left-width 0s linear 0.35s;
+    }
+    &~.sidebar:after {
+      height: 100%;
+      top: 0;
+    }
+  }
+
+  &.personal-view-open {
+    &::before {
+      border-top-color: $(personal-link-color);
+      border-right-color: $(personal-link-color);
+      border-bottom-color: $(personal-link-color);
+    }
+    &::after {
+      border-top: 2px solid $(personal-link-color);
+    }
+    &~.sidebar:after {
+      border-left: 2px solid $personal-link-color;
+    }
+  }
+  &.portfolio-view-open {
+    &::before {
+      border-top-color: $(portfolio-link-color);
+      border-right-color: $(portfolio-link-color);
+      border-bottom-color: $(portfolio-link-color);
+    }
+    &::after {
+      border-top: 2px solid $(portfolio-link-color);
+    }
+    &~.sidebar:after {
+      border-left: 2px solid $portfolio-link-color;
+    }
+  }
+  &.blog-view-open {
+    &::before {
+      border-top-color: $(blog-link-color);
+      border-right-color: $(blog-link-color);
+      border-bottom-color: $(blog-link-color);
+    }
+    &::after {
+      border-top: 2px solid $(blog-link-color);
+    }
+    &~.sidebar:after {
+      border-left: 2px solid $blog-link-color;
+    }
+  }
+  &.contact-view-open {
+    &::before {
+      border-top-color: $(contact-link-color);
+      border-right-color: $(contact-link-color);
+      border-bottom-color: $(contact-link-color);
+    }
+    &::after {
+      border-top: 2px solid $(contact-link-color);
+    }
+    &~.sidebar:after {
+      border-left: 2px solid $contact-link-color;
+    }
+  }
+  @each $linkName in (personal, portfolio, blog, contact) {
+    &.$(linkName)-view-open {
+      .view-content.$(linkName)-view {
+        visibility: visible;
+        opacity: 1;
+        transition: opacity 0.5s ease-in-out;
+      }
+    }
+  }
+
+  .view-content {
+    color: #9b9b9b;
+    box-sizing: border-box;
+    position: absolute;
+    white-space: nowrap;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    visibility: hidden;
+    opacity: 0;
+    display: block;
+    transition: opacity 0.5s ease-in-out;
+    h3, h4, em {
+      display: inline-block
+    }
+  }
+  h3 {
+    display: inline-block;
+  }
+}
 
 .sidebar {
-  position: fixed;
+  position: absolute;
   z-index: 1;
   background: $body-bg;
   width: 15vw;
@@ -24,5 +244,43 @@
     margin: 0;
     border-left: 1px solid $viewer-border-color;
     transition: top 0.5s ease-in-out, height 0.5s ease-in-out;
+  }
+  &::before {
+    position: absolute;
+    content: '';
+    height: 100%;
+    width: 0;
+    right: 0;
+    transition: all 0.5s ease-in-out;
+  }
+  &.personal-sidebar-open::before {
+    width: 100%;
+    background-color: $personal-link-color;
+    transition: all 0.5s ease-in-out;
+  }
+  &.portfolio-sidebar-open::before {
+    width: 100%;
+    background-color: $portfolio-link-color;
+    transition: all 0.5s ease-in-out;
+  }
+  &.blog-sidebar-open::before {
+    width: 100%;
+    background-color: $blog-link-color;
+    transition: all 0.5s ease-in-out;
+  }
+  
+  .nav {
+    text-align: right;
+    position: absolute;
+    bottom: 10%;
+    right: 28%;
+    z-index: 5;
+    h2 {
+      line-height: 1.3rem;
+    }
+    a {
+      text-decoration: none;
+      color: white;
+    }
   }
 }
