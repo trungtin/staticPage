@@ -5,7 +5,7 @@
  */
 
 export default {
-  title: 'React Static Boilerplate',
-  description: 'Static website generator for React.js web applications.',
+  title: 'Tran Trung Tin',
+  description: 'Tran Trung Tin Homepage',
   googleAnalyticsId: 'UA-XXXXX-X',
 };

@@ -12,8 +12,8 @@ export default class extends Component {
   render() {
     return (
       <div className="container">
-        <h1 className="col col-13">About Me</h1>
-        <p className="col col-12">Coming soon.</p>
+        <div className="col col-13"></div>
+        <div className="col-23"/>
       </div>
     );
   }
